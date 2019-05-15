@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var cultureRoute = ViewContext.RouteData.Values["lang"].ToString();
+    if(cultureRoute=="kk")
+    {
+        cultureRoute = "kk-KZ";
+    }
+    else if(cultureRoute=="ru")
+    {
+        cultureRoute = "ru-RU";
+    }
+
+    UICulture = cultureRoute;
+}

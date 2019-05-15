@@ -1,0 +1,61 @@
+﻿@using Resources;
+
+
+@{
+    ViewBag.Title = @Resources.Admin;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Resources.Admin</h2>
+
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">@Resources.Users</h4>
+    <p>@Resources.Text5</p>
+    <hr>
+    @Html.ActionLink(@Resources.Users, "AdministrationUsers", "Admin", new { }, new { @class = "btn btn-lg btn-success" })
+</div>
+
+<div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">@Resources.Divisions</h4>
+    <p>@Resources.Text6</p>
+    <hr>
+    @Html.ActionLink(@Resources.Divisions, "Index", "Unit", new { }, new { @class = "btn btn-lg btn-info" })
+</div>
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">@Resources.Directions</h4>
+    <p>@Resources.Text7</p>
+    <hr>
+    @Html.ActionLink(@Resources.Directions, "Index", "Direction", new { }, new { @class = "btn btn-lg btn-success" })
+</div>
+
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">(@Resources.Typesofjobs</h4>
+    <p>@Resources.Text8</p>
+    <hr>
+    @Html.ActionLink(@Resources.Typesofjobs, "Index", "TypeOfOffer", new { }, new { @class = "btn btn-lg btn-primary" })
+</div>
+
+<div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">@Resources.Statuses</h4>
+    <p>@Resources.Text9</p>
+    <hr>
+    @Html.ActionLink(@Resources.Statuses, "Index", "Status", new { }, new { @class = "btn btn-lg btn-info" })
+</div>
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">@Resources.Roles</h4>
+    <p>@Resources.Text10</p>
+    <hr>
+    @Html.ActionLink(@Resources.Roles, "Index", "Role", new { }, new { @class = "btn btn-lg btn-warning" })
+</div>
+
+
+
+<div class="panel-footer">
+    <p>
+        @Html.ActionLink(@Resources.Backto, "Index", "Home", new { }, new { @class = "btn btn-success" })
+    </p>
+</div>
+
+

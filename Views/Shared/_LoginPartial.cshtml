@@ -1,0 +1,113 @@
+﻿@using Microsoft.AspNet.Identity
+@using Resources;
+@using Domain.Logic.Helpers;
+@{
+
+    string iSrc = "";
+    string lang = "";
+    string id = "";
+
+    if (Url.RequestContext.RouteData.Values["id"] != null)
+    {
+        id = Url.RequestContext.RouteData.Values["id"].ToString();
+    }
+    if (SiteSession.CurrentUICulture != null && SiteSession.CurrentUICulture == "ru")
+    {
+        iSrc = "~/images/flags/Russian_Federation.png";
+        lang = "RU";
+    }
+    else if (SiteSession.CurrentUICulture != null && SiteSession.CurrentUICulture == "kk")
+    {
+        iSrc = "~/images/flags/Kazakhstan.png";
+        lang = "KZ";
+    }
+    else
+    {
+        iSrc = "~/images/flags/United_States_of_America(USA).png";
+        lang = "EN";
+    }
+}
+
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(@Resources.Hello+" " + User.Identity.GetUserName() + "!", "Index", "Manage", new { lang = "en" },  new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">@Resources.Logoff</a></li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <img runat="server" id="imgNavSel" src='@Url.Content(iSrc)' alt="..." class="img-thumbnail icon-small" style="filter: none; -webkit-filter: grayscale(0); width: 20px; height: 20px;" />
+                    <span runat="server" id="lanNavSel">@Url.Content(lang)</span> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a title="Русский" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), null, new { lang ="ru",id=id})">
+                            <img src="@Url.Content("~/images/flags/Russian_Federation.png")" style="vertical-align: middle; width: 30px;" /><span runat="server" id="lanNavRus">Русский</span>
+                        </a>
+                    </li>
+
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a title="English" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), null, new { lang ="en",id=id})">
+                            <img src="@Url.Content("~/images/flags/United_States_of_America(USA).png")" style="vertical-align: middle; width: 30px;" /><span runat="server" id="lanNavEng">English</span>
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a title="Қазақша" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), null, new { lang = "kk",id=id})">
+                            <img src="@Url.Content("~/images/flags/Kazakhstan.png")" style="vertical-align: middle; width: 30px;" /><span runat="server" id="lanNavKaz">Qazaq</span>
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                </ul>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink(@Resources.Register, "Register", "Account", new { lang = "en" }, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(@Resources.Login, "Login", "Account", new { lang = "en" }, htmlAttributes: new { id = "loginLink" })</li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <img runat="server" id="imgNavSel" src='@Url.Content(iSrc)' alt="..." class="img-thumbnail icon-small" style="filter: none; -webkit-filter: grayscale(0); width: 20px; height: 20px;" />
+                <span runat="server" id="lanNavSel">@Url.Content(lang)</span> <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a title="Русский" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), null,new { lang = "ru" })">
+                        <img src="@Url.Content("~/images/flags/Russian_Federation.png")" style="vertical-align: middle; width: 30px;" /><span runat="server" id="lanNavRus">Русский</span>
+                    </a>
+                </li>
+
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a title="English" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), null,new { lang = "en" })">
+                        <img src="@Url.Content("~/images/flags/United_States_of_America(USA).png")" style="vertical-align: middle; width: 30px;" /><span runat="server" id="lanNavEng">English</span>
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a title="Қазақша" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), null,new { lang = "kk" })">
+                        <img src="@Url.Content("~/images/flags/Kazakhstan.png")" style="vertical-align: middle; width: 30px;" /><span runat="server" id="lanNavKaz">Qazaq</span>
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+            </ul>
+        </li>
+    </ul>
+}

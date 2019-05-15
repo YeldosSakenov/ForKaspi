@@ -1,0 +1,165 @@
+﻿@using Resources;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Core.Dtos.OfferDto>
+
+@{
+    ViewBag.Title = @Resources.Home;
+}
+
+<div style="width:1500px;">
+    <div id="header-wrapper" style="margin-top:0.5%;">
+        <div id="header" class="container">
+            <div id="logo">
+                <h1><a href="#">@Resources.Ideabank</a></h1>
+                <p>@Resources.Designby <a href="#" rel="nofollow">@Resources.AuthorFullName </a></p>
+            </div>
+            <div id="social">
+
+            </div>
+        </div>
+        <div id="menu" class="container">
+            <ul>
+                @{
+                    if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin") || User.IsInRole("Comission"))
+                        {
+                            <li class="current_page_item">
+                                @Html.ActionLink(@Resources.Commission, "Index", "Comission", new { }, new { })
+                            </li>
+                        }
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>  @Html.ActionLink(@Resources.Administration, "Index", "Admin", new { }, new { })</li>
+                        }
+                        if (User.IsInRole("Admin") || User.IsInRole("Customer"))
+                        {
+                            <li>  @Html.ActionLink(@Resources.Customer, "Index", "Customer", new { }, new { })</li>
+                        }
+                        if (User.IsInRole("Admin") || User.IsInRole("Autor"))
+                        {
+                            <li>  @Html.ActionLink(@Resources.Autor, "Index", "Offer", new { }, new { })</li>
+                        }
+
+
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="page" class="container">
+    <div class="column1">
+        <div class="title">
+            <h2>@Resources.Text1</h2>
+        </div>
+        <p>On the basis of this platform, the opportunity for the customer to interact with the scientific world in order to solve technological problems is provided</p>
+        @{
+            if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin") || User.IsInRole("Autor"))
+                {
+                    <p>
+                        @Html.ActionLink(@Resources.Apply, "Create", "Offer", new { }, new { @class = "btn btn-lg btn-info" })
+                    </p>
+                }
+            }
+        }
+    </div>
+    <div class="column2">
+        <div class="title">
+            <h2>@Resources.Text2</h2>
+        </div>
+        <img src="~/images/pic01.jpg" width="282" height="150" alt="" />
+        <p>Donec nonummy magna quis risus. Quisque eleifend. Phasellus tempor vehicula justo. Aliquam lacinia metus.</p>
+    </div>
+    <div class="column3">
+        <div class="title">
+            <h2>@Resources.Text3</h2>
+        </div>
+        <img src="~/images/pic02.jpg" width="282" height="150" alt="" />
+        <p>Phasellus tempor vehicula justo. Aliquam lacinia metus ut elit. Suspendisse iaculis mauris nec lorem.</p>
+    </div>
+    <div class="column4">
+        <div class="title">
+            <h2>@Resources.Text4</h2>
+        </div>
+
+        <img src="~/images/pic03.jpg" width="282" height="150" alt="" />
+        <p>Quisque eleifend. Phasellus tempor vehicula justo. Aliquam lacinia metus ut elit. Suspendisse iaculis mauris.</p>
+    </div>
+    <div class="column5">
+        <div class="title">
+            <h2>@Resources.Text4</h2>
+        </div>
+
+        <img src="~/images/pic03.jpg" width="282" height="150" alt="" />
+        <p>Quisque eleifend. Phasellus tempor vehicula justo. Aliquam lacinia metus ut elit. Suspendisse iaculis mauris.</p>
+    </div>
+
+    <hr />
+
+    <div class="panel panel-success" style="width:100%;">
+        <table class="table table-striped table-bordered table-hover table-dark" >
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Coauthor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().DatePublication)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().TypeOfOfferName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().StatusName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().DirectionName)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Coauthor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DatePublication)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TypeOfOfferName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DirectionName)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            @Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true })
+        }
+    </div>
+
+</div>

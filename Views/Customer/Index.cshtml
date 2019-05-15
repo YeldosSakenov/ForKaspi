@@ -1,0 +1,28 @@
+﻿@using Resources;
+
+@{
+    ViewBag.Title = @Resources.Customer;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Resources.Customer</h2>
+
+<div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">@Resources.Categories</h4>
+    <p>@Resources.Text11</p>
+    <hr>
+    @Html.ActionLink(@Resources.Categories, "Index", "Category", new { }, new { @class = "btn btn-lg btn-success" })
+</div>
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">@Resources.Problems</h4>
+    <p>@Resources.Text12</p>
+    <hr>
+    @Html.ActionLink(@Resources.Problems, "Index", "Problem", new { }, new { @class = "btn btn-lg btn-danger" })
+</div>
+
+<div class="panel-footer">
+    <p>
+        @Html.ActionLink(@Resources.Backto, "Index", "Home", new { }, new { @class = "btn btn-success" })
+    </p>
+</div>

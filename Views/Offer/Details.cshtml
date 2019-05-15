@@ -1,0 +1,95 @@
+﻿@using Resources;
+
+
+@model Core.Dtos.OfferDto
+
+@{
+    ViewBag.Title = @Resources.Offers;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div>
+    <div class="panel panel-info" style="margin-top:5%;">
+        <div class="panel-heading"> <h2> @Resources.Details</h2></div>
+        <div class="panel-body">
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Note)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Note)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Coauthor)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Coauthor)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DatePublication)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DatePublication)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProblemName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ProblemName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StatusName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StatusName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DirectionName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DirectionName)
+                </dd>
+                @if (Model.Files.Count != 0)
+                {
+                    <dt>
+                        @Html.Label(@Resources.Files)
+                    </dt>
+
+                    <dd>
+                        @Html.ActionLink(@Resources.Download, "DownloadFile", "Offer", new { id = Model.Id }, new { @class = "btn btn-success" })
+                    </dd>}
+            </dl>
+        </div>
+        <div class="panel-footer">
+            <div>
+                <p>
+                    @Html.ActionLink(@Resources.Edit, "Edit", new { id = Model.Id }, new { @class = "btn btn-info" }) |
+                    @Html.ActionLink(@Resources.Backto, "Index", new { }, new { @class = "btn btn-success" })
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

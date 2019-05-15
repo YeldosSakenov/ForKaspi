@@ -1,0 +1,195 @@
+﻿@using Core.Dtos;
+@using Resources;
+
+@model Core.Dtos.OfferDto
+
+@{
+
+    ViewBag.Title = @Resources.Offers;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    #dropArea {
+        background: #77bafa;
+        border: black dashed 1px;
+        height: 50px;
+        text-align: center;
+        color: #fff;
+        padding-top: 12px;
+    }
+
+    .active-drop {
+        background: #ff0000 !important;
+        border: solid 2px blue !important;
+        opacity: .5;
+        color: black !important;
+    }
+</style>
+
+
+@using (Html.BeginForm("Create", "Offer", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-info" style="margin-top:5%;">
+        <div class="panel-heading"> <h2> @Resources.Create</h2></div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", @type = "textarea" } })
+                        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Coauthor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Coauthor, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Coauthor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.DatePublication, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DatePublication, new { htmlAttributes = new { @class = "datepicker form-control", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.DatePublication, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsShow, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsShow)
+                            @Html.ValidationMessageFor(model => model.IsShow, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TypeOfOfferName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("OfferId", ViewData["SelectedListForTypeOfOffer"] as List<SelectListItem>, "Please select ...", new { @class = "form-control input-xlarge required", @type = "text", @autocomplete = "on", id = "ddlTypeOfOffer" })
+                        @Html.ValidationMessageFor(model => model.OfferId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProblemName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("ProblemsId", ViewData["SelectedListForProblem"] as List<SelectListItem>, "Please select ...", new { @class = "form-control input-xlarge required", @type = "text", @autocomplete = "on", id = "ddlProblem" })
+                        @Html.ValidationMessageFor(model => model.ProblemsId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <div class="col-md-2"> </div>
+                        <div class="col-md-10">
+                            <div id="dropArea">
+                                Drop your files here
+                            </div>
+                            <h4>Uploaded files : </h4>
+                            <ul class="list-group" id="uploadList"></ul>
+                        </div>
+                    </div>*@
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.StatusesId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("StatusesId", ViewData["SelectedListForStatus"] as List<SelectListItem>, "Please select ...", new { @class = "form-control input-xlarge required", @type = "text", @autocomplete = "on", id = "ddlProblem" })
+                            @Html.ValidationMessageFor(model => model.StatusesId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DirectionName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("DirectionId", ViewData["SelectedListForDirection"] as List<SelectListItem>, "Please select ...", new { @class = "form-control input-xlarge required", @type = "text", @autocomplete = "on", id = "ddlDirection" })
+                        @Html.ValidationMessageFor(model => model.DirectionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("File:", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.FileContent, new { @type = "file" })
+                        @Html.ValidationMessageFor(model => model.FileContent, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsRead, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsRead)
+                            @Html.ValidationMessageFor(model => model.IsRead, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value=@Resources.Create class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div>
+                @Html.ActionLink(@Resources.Backto, "Index", new { }, new { @class = "btn btn-info" })
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-migrate-3.0.1.js"></script>
+    <script src="~/Scripts/jquery.filedrop.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#dropArea').filedrop({
+                url: '@Url.Action("UploadFiles")',
+                allowedfiletypes: ['image/jpeg', 'image/png', 'image/gif', 'image/jfif','application/pdf'],
+                allowedfileextensions: ['.jpg', '.jpeg', '.png', '.gif', '.jfif','.pdf'],
+                paramname: 'files',
+                maxfiles: 5,
+                maxfilesize: 5, // in MB
+                dragOver: function () {
+                    $('#dropArea').addClass('active-drop');
+                },
+                dragLeave: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                drop: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                afterAll: function (e) {
+                    $('#dropArea').html('file(s) uploaded successfully');
+                },
+                uploadFinished: function (i, file, response, time) {
+                    $('#uploadList').append('<li class="list-group-item">'+file.name+'</li>')
+                }
+            })
+        })
+    </script>
+}
+

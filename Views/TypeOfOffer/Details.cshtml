@@ -1,0 +1,37 @@
+﻿@using Resources;
+
+@model Core.Dtos.TypeOfOfferDto
+
+@{
+    ViewBag.Title = @Resources.Typesofjobs;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Resources.Details</h2>
+
+<div>
+    <div class="panel panel-info" style="margin-top:5%;">
+        <div class="panel-heading"> <h2>@Resources.Details</h2></div>
+        <div class="panel-body">
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="panel-footer">
+            <div>
+                <p>
+                    @Html.ActionLink(@Resources.Edit, "Edit", new { id = Model.Id }, new { @class = "btn btn-info" })  |
+                    @Html.ActionLink(@Resources.Backto, "Index", new { }, new { @class = "btn btn-success" })
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
